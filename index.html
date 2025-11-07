@@ -13,54 +13,6 @@
       overflow: hidden;
     }
 
-    /*video {
-      width: 100vw;
-      height: 100vh;
-      object-fit: cover;
-      cursor: pointer;
-    }
-
-    .cover {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: black;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 5;
-      transition: opacity 1s ease;
-    }
-
-    .cover img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .cover.hide {
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    #pauseIndicator{
-      position: fixed;
-      top:50%;
-      left:50%;
-      transform: translate(-50%,-50%);
-      display:none;
-      z-index: 30;
-      background: rgba(0,0,0,0.6);
-      color: gold;
-      padding: 10px 16px;
-      border-radius: 8px;
-      font-size: 1.2rem;
-      align-items:center;
-      justify-content:center;
-    }*/
-
     /* ---------- Fullscreen video + cover ---------- */
     #weddingVideo {
       position: fixed;
@@ -163,17 +115,6 @@
       backdrop-filter: blur(3px);
       z-index: 10;
     }
-
-    /* Menu icon buttons 
-    .menu-btn {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      overflow: hidden;
-      border: 2px solid gold;
-      cursor: pointer;
-      transition: transform 0.3s ease;
-    }*/
 
     .menu-btn img {
       width: 100%;
@@ -428,75 +369,6 @@
     //video.addEventListener('play', () => showIndicator('▶', 800));
     video.addEventListener('pause', () => showIndicator('❚❚', 1400));
 
-    // central function to start/resume playback
-    /*async function startPlayback() {
-      try {
-        // first user gesture: ensure audio and video start
-        if (!firstPlayDone) {
-          await Promise.all([ video.play(), audio.play() ]);
-          // hide cover visually and disable pointer events
-          if (cover) {
-            cover.classList.add('hide');
-            // remove from flow after fade
-            setTimeout(() => { if (cover.parentNode) cover.parentNode.removeChild(cover); }, 800);
-          }
-          firstPlayDone = true;
-        } else {
-          // toggle play/pause on subsequent taps on video
-          if (video.paused) {
-            await video.play();
-          } else {
-            video.pause();
-          }
-        }
-      } catch (err) {
-        console.warn('Playback failed (user gesture required?):', err);
-      }
-    }
-
-    // attach to both cover and video to ensure click reaches handler
-    if (cover) cover.addEventListener('click', startPlayback);
-    video.addEventListener('click', startPlayback);
-
-    // --- Pause / Resume indicator ---
-    const pauseIndicator = document.getElementById('pauseIndicator');
-
-    function showIndicator(text, ms = 1500) {
-      if (!pauseIndicator) return;
-      pauseIndicator.textContent = text;
-      pauseIndicator.style.display = 'flex';
-      // restart timeout if called multiple times quickly
-      if (pauseIndicator._hideTimeout) clearTimeout(pauseIndicator._hideTimeout);
-      pauseIndicator._hideTimeout = setTimeout(() => {
-        pauseIndicator.style.display = 'none';
-      }, ms);
-    }
-
-    // Use video events so indicator shows reliably (not only on clicks)
-    video.addEventListener('pause', () => {
-      showIndicator('❚❚ Paused', 1500);
-    });
-
-    video.addEventListener('play', () => {
-      showIndicator('▶ Playing', 900);
-    });
-
-    // Also show "Paused" when video gets ended (optional)
-    video.addEventListener('ended', () => {
-      showIndicator('❚❚ Paused', 1500);
-    });
-
-
-    video.addEventListener('click', () => {
-      if (!videoPlaying) {
-        video.play();
-        audio.play();
-      } else {
-        video.paused ? video.play() : video.pause();
-      }
-      videoPlaying = true;
-    });*/
-
     // Popup Control
     function openPopup(id) {
       document.getElementById(id).style.display = 'flex';
@@ -599,55 +471,7 @@
       initGuestbook();
     });
 
-    /* Render a single wish into #guestDisplay
-    function appendWishToDisplay(entry) {
-      const guestDisplay = document.getElementById('guestDisplay');
-      const p = document.createElement('p');
-      p.innerHTML = `<strong>${escapeHtml(entry.name)}:</strong> ${escapeHtml(entry.wish)}`;
-      guestDisplay.appendChild(p);
-    }
-
-    // Clear and load all guestbook entries from Google Sheets
-    async function loadGuestbook() {
-      const guestDisplay = document.getElementById('guestDisplay');
-      guestDisplay.innerHTML = ''; // clear
-      try {
-        const resp = await fetch(`${GSS_URL}?type=guestbook`);
-        const data = await resp.json();
-        if (data.status === 'ok') {
-          if (data.rows.length === 0) {
-            guestDisplay.innerHTML = '<p><i>Wishes will appear here...</i></p>';
-          } else {
-            // newest last -> keep order as in sheet (oldest first)
-            data.rows.forEach(r => appendWishToDisplay(r));
-          }
-        } else {
-          guestDisplay.innerHTML = '<p><i>Unable to load wishes.</i></p>';
-          console.error('Guestbook load error:', data.message || data);
-        }
-      } catch (err) {
-        guestDisplay.innerHTML = '<p><i>Unable to load wishes.</i></p>';
-        console.error('Fetch error:', err);
-      }
-    }
-
-    guestForm.addEventListener('submit', async e => {
-      e.preventDefault();
-      const formData = new FormData(guestForm);
-      // optimistic local append removed — we'll reload from server
-      try {
-        const res = await fetch(GSS_URL, { method: 'POST', body: formData });
-        const text = await res.text();
-        console.log('Server response:', text);
-        guestForm.reset();
-        await loadGuestbook(); // fetch fresh entries including this one
-      } catch (err) {
-        console.error('Error sending guestbook:', err);
-        // Optionally show the user an error message
-      }
-    });*/
-
-
   </script>
 </body>
 </html>
+
