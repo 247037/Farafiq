@@ -1,0 +1,653 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wedding Invitation - Feb 6, 2026</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: #000;
+      color: #fff;
+      overflow: hidden;
+    }
+
+    /*video {
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      cursor: pointer;
+    }
+
+    .cover {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: black;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 5;
+      transition: opacity 1s ease;
+    }
+
+    .cover img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .cover.hide {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    #pauseIndicator{
+      position: fixed;
+      top:50%;
+      left:50%;
+      transform: translate(-50%,-50%);
+      display:none;
+      z-index: 30;
+      background: rgba(0,0,0,0.6);
+      color: gold;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-size: 1.2rem;
+      align-items:center;
+      justify-content:center;
+    }*/
+
+    /* ---------- Fullscreen video + cover ---------- */
+    #weddingVideo {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;        /* preserve 9:16 crop, covers viewport */
+      z-index: 1;
+      background: #000;
+      cursor: pointer;
+    }
+
+    /* cover overlay sits above video until removed */
+    #videoCover {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 3;               /* above video */
+      transition: opacity 0.7s ease;
+      background: #000;         /* fallback */
+      pointer-events: auto;     /* allow clicks so we can start playback */
+    }
+
+    /* cover image fills viewport */
+    #videoCover img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* hidden state for cover */
+    #videoCover.hide {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* Pause/Play indicator (center) */
+    #pauseIndicator {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+      display: none;            /* shown by JS */
+      z-index: 4;               /* above cover removal */
+      background: rgba(0,0,0,0.65);
+      color: gold;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-weight: 600;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.15rem;
+      pointer-events: none;     /* indicator doesn't block clicks */
+    }
+
+    /* Floating buttons */
+    .buttons {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 15px;
+      z-index: 10;
+    }
+
+    .btn {
+      width: 60px;
+      height: 60px;
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid gold;
+      border-radius: 50%;
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: gold;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    /* Floating menu bar */
+    .menu-bar {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255, 255, 255, 0.15);
+      /*border: 2px solid gold;*/
+      border-radius: 50px;
+      padding: 8px 15px;
+      display: flex;
+      gap: 20px;
+      backdrop-filter: blur(3px);
+      z-index: 10;
+    }
+
+    /* Menu icon buttons 
+    .menu-btn {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2px solid gold;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }*/
+
+    .menu-btn img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .menu-btn:hover {
+      transform: scale(1.1);
+    }
+
+
+    /* Popup base */
+    .popup {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0,0,0,0.85);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 20;
+    }
+
+    .popup-content {
+      background: rgba(255,255,255,0.95);
+      color: #000;
+      border-radius: 20px;
+      padding: 25px;
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+      position: relative;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      cursor: pointer;
+      font-size: 20px;
+    }
+
+    /* Countdown */
+    .countdown {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 15px 0;
+    }
+
+    .count-box {
+      background: #000;
+      color: gold;
+      padding: 10px;
+      border-radius: 10px;
+      width: 60px;
+    }
+
+    /* Forms */
+    input, select, textarea {
+      width: 80%;
+      padding: 10px;
+      margin: 8px 0;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      background: gold;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 10px;
+      color: #000;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .guest-display {
+      border: 1px solid #ccc;
+      background: #f9f9f9;
+      padding: 10px;
+      height: 120px;
+      overflow-y: auto;
+      border-radius: 8px;
+      text-align: left;
+      font-size: 0.9em;
+    }
+
+    iframe {
+      width: 100%;
+      height: 300px;
+      border: none;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background Video -->
+  <div id="videoCover" class="cover">
+    <img src="WeddingCover.png" alt="Wedding Cover" />
+  </div>
+  <video id="weddingVideo" preload="metadata" poster="video-placeholder.jpg">
+    <source src="WeddingFarafiqNoAudio.mp4" type="video/mp4">
+    Your browser does not support video.
+  </video>
+  <div id="pauseIndicator">❚❚ Paused</div>
+  <audio id="weddingAudio" loop>
+    <source src="WeddingSong.mp3" type="audio/mp3">
+  </audio>
+
+  <!-- Buttons -->
+    <div class="menu-bar">
+      <div class="menu-btn" onclick="openPopup('invitationPopup')">
+        <img src="Btn_01.png" alt="Invitation">
+      </div>
+      <div class="menu-btn" onclick="openPopup('rsvpPopup')">
+        <img src="Btn_02.png" alt="RSVP">
+      </div>
+      <div class="menu-btn" onclick="openPopup('guestbookPopup')">
+        <img src="Btn_03.png" alt="Guestbook">
+      </div>
+      <div class="menu-btn" onclick="openPopup('locationPopup')">
+        <img src="Btn_04.png" alt="Location">
+      </div>
+    </div>
+
+
+  <!-- Invitation Popup -->
+  <div id="invitationPopup" class="popup">
+    <div class="popup-content">
+      <span class="close-btn" onclick="closePopup('invitationPopup')">&times;</span>
+      <h2>You're Invited!</h2>
+      <p>We joyfully invite you to celebrate the wedding of</p>
+      <h3 style="color:gold;">[Couple's Names]</h3>
+      <p>on Friday, February 6th, 2026<br>at Rumah Abang Jamil 1, Seremban</p>
+      <div class="countdown">
+        <div class="count-box"><div id="days">0</div><small>Days</small></div>
+        <div class="count-box"><div id="hours">0</div><small>Hours</small></div>
+        <div class="count-box"><div id="minutes">0</div><small>Minutes</small></div>
+      </div>
+      <p>We can't wait to celebrate this special day with you!</p>
+    </div>
+  </div>
+
+  <!-- RSVP Popup -->
+  <div id="rsvpPopup" class="popup">
+    <div class="popup-content">
+      <span class="close-btn" onclick="closePopup('rsvpPopup')">&times;</span>
+      <h2>RSVP</h2>
+      <form id="rsvpForm">
+        <input type="text" name="name" placeholder="Your Name" required><br>
+        <label>Attendance:</label><br>
+        <select name="attendance" required>
+          <option value="yes">Attending</option>
+          <option value="no">Not Attending</option>
+        </select><br>
+        <input type="number" name="total" placeholder="Number of Guests" min="0" required><br>
+        <button type="submit">Submit</button>
+      </form>
+      <p id="rsvpMsg"></p>
+    </div>
+  </div>
+
+  <!-- Guestbook Popup -->
+  <div id="guestbookPopup" class="popup">
+    <div class="popup-content">
+      <span class="close-btn" onclick="closePopup('guestbookPopup')">&times;</span>
+      <h2>Guestbook</h2>
+      <form id="guestForm">
+        <input type="text" name="name" placeholder="Your Name" required><br>
+        <textarea name="wish" placeholder="Your Wishes..." required></textarea><br>
+        <button type="submit">Send</button>
+      </form>
+      <div class="guest-display" id="guestDisplay">
+        <p><i>Wishes will appear here...</i></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Location Popup -->
+  <div id="locationPopup" class="popup">
+    <div class="popup-content">
+      <span class="close-btn" onclick="closePopup('locationPopup')">&times;</span>
+      <h2>Location</h2>
+      <p>Rumah Abang Jamil 1, Seremban</p>
+      <iframe
+        src="https://www.google.com/maps?q=Rumah%20Abang%20Jamil%201,%20Seremban&output=embed">
+      </iframe>
+    </div>
+  </div>
+
+  <script>
+    // Video + Audio Control
+    const video = document.getElementById('weddingVideo');
+    const audio = document.getElementById('weddingAudio');
+    const cover = document.getElementById('videoCover');
+    const pauseIndicator = document.getElementById('pauseIndicator');
+    //let videoPlaying = false;
+    let firstPlayDone = false;
+
+    // showIndicator - used for pause/play notifications
+    function showIndicator(text, ms = 1200) {
+      if (!pauseIndicator) return;
+      pauseIndicator.textContent = text;
+      pauseIndicator.style.display = 'flex';
+      if (pauseIndicator._hideTimeout) clearTimeout(pauseIndicator._hideTimeout);
+      pauseIndicator._hideTimeout = setTimeout(() => {
+        pauseIndicator.style.display = 'none';
+      }, ms);
+    }
+
+    // central play/pause toggler for clicks
+    async function startPlaybackToggle() {
+      try {
+        if (!firstPlayDone) {
+          // first user gesture: start both video and audio
+          await Promise.all([ video.play(), audio.play() ]);
+          firstPlayDone = true;
+
+          // fade and remove cover so it no longer blocks clicks
+          if (cover) {
+            cover.classList.add('hide');
+            setTimeout(() => {
+              if (cover && cover.parentNode) cover.parentNode.removeChild(cover);
+            }, 800); // match CSS transition
+          }
+          //showIndicator('▶', 900);
+        } else {
+          // subsequent taps toggle video; audio stays looping
+          if (video.paused) {
+            await video.play();
+            //showIndicator('▶', 800);
+          } else {
+            video.pause();
+            showIndicator('❚❚', 1400);
+          }
+        }
+      } catch (err) {
+        console.warn('Playback error (likely autoplay policy):', err);
+      }
+    }
+
+    // Attach click listener to BOTH cover (first gesture) and video (later gestures)
+    if (cover) cover.addEventListener('click', startPlaybackToggle);
+    if (video) video.addEventListener('click', startPlaybackToggle);
+
+    // Also bind to play/pause events to reliably show indicator even when controls or keyboard event triggers
+    //video.addEventListener('play', () => showIndicator('▶', 800));
+    video.addEventListener('pause', () => showIndicator('❚❚', 1400));
+
+    // central function to start/resume playback
+    /*async function startPlayback() {
+      try {
+        // first user gesture: ensure audio and video start
+        if (!firstPlayDone) {
+          await Promise.all([ video.play(), audio.play() ]);
+          // hide cover visually and disable pointer events
+          if (cover) {
+            cover.classList.add('hide');
+            // remove from flow after fade
+            setTimeout(() => { if (cover.parentNode) cover.parentNode.removeChild(cover); }, 800);
+          }
+          firstPlayDone = true;
+        } else {
+          // toggle play/pause on subsequent taps on video
+          if (video.paused) {
+            await video.play();
+          } else {
+            video.pause();
+          }
+        }
+      } catch (err) {
+        console.warn('Playback failed (user gesture required?):', err);
+      }
+    }
+
+    // attach to both cover and video to ensure click reaches handler
+    if (cover) cover.addEventListener('click', startPlayback);
+    video.addEventListener('click', startPlayback);
+
+    // --- Pause / Resume indicator ---
+    const pauseIndicator = document.getElementById('pauseIndicator');
+
+    function showIndicator(text, ms = 1500) {
+      if (!pauseIndicator) return;
+      pauseIndicator.textContent = text;
+      pauseIndicator.style.display = 'flex';
+      // restart timeout if called multiple times quickly
+      if (pauseIndicator._hideTimeout) clearTimeout(pauseIndicator._hideTimeout);
+      pauseIndicator._hideTimeout = setTimeout(() => {
+        pauseIndicator.style.display = 'none';
+      }, ms);
+    }
+
+    // Use video events so indicator shows reliably (not only on clicks)
+    video.addEventListener('pause', () => {
+      showIndicator('❚❚ Paused', 1500);
+    });
+
+    video.addEventListener('play', () => {
+      showIndicator('▶ Playing', 900);
+    });
+
+    // Also show "Paused" when video gets ended (optional)
+    video.addEventListener('ended', () => {
+      showIndicator('❚❚ Paused', 1500);
+    });
+
+
+    video.addEventListener('click', () => {
+      if (!videoPlaying) {
+        video.play();
+        audio.play();
+      } else {
+        video.paused ? video.play() : video.pause();
+      }
+      videoPlaying = true;
+    });*/
+
+    // Popup Control
+    function openPopup(id) {
+      document.getElementById(id).style.display = 'flex';
+    }
+    function closePopup(id) {
+      document.getElementById(id).style.display = 'none';
+    }
+
+    // Countdown Timer
+    const weddingDate = new Date("Feb 6, 2026 00:00:00").getTime();
+    setInterval(() => {
+      const now = new Date().getTime();
+      const distance = weddingDate - now;
+      document.getElementById("days").innerText = Math.floor(distance / (1000 * 60 * 60 * 24));
+      document.getElementById("hours").innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000*60*60));
+      document.getElementById("minutes").innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000*60));
+    }, 1000);
+
+    // RSVP Google Sheets
+    const rsvpForm = document.getElementById('rsvpForm');
+    rsvpForm.addEventListener('submit', e => {
+      e.preventDefault();
+      document.getElementById("rsvpMsg").innerText = "Thank you for your response!";
+      // Connect your Google Apps Script Web App URL below
+      fetch("https://script.google.com/macros/s/AKfycbzDRySqyH_cgh5reG64j4CDvu45-KZB2_v77rlVjlKh4agDR3_q3B8nAf3OB8FzuS87Xg/exec", 
+      {method:"POST", body:new FormData(rsvpForm)});
+      rsvpForm.reset();
+    });
+
+    // Guestbook
+    const guestForm = document.getElementById('guestForm');
+    const guestDisplay = document.getElementById('guestDisplay');
+    const GSS_URL = "https://script.google.com/macros/s/AKfycbzDRySqyH_cgh5reG64j4CDvu45-KZB2_v77rlVjlKh4agDR3_q3B8nAf3OB8FzuS87Xg/exec";
+    
+    // Small helper to avoid XSS when inserting text
+    function escapeHtml(str) {
+      if (!str) return '';
+      return str.replace(/[&<>"']/g, function(m){ return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[m]; });
+    }
+
+    // render array of rows (rows = [{timestamp, name, wish}, ...])
+    function renderGuestbookRows(rows) {
+      if (!guestDisplay) return;
+      guestDisplay.innerHTML = ''; // clear then re-render everything (keeps history)
+      if (!rows || rows.length === 0) {
+        guestDisplay.innerHTML = '<p><i>Wishes will appear here...</i></p>';
+        return;
+      }
+      // show oldest first (sheet order)
+      rows.forEach(r => {
+        const p = document.createElement('p');
+        p.innerHTML = `<strong>${escapeHtml(r.name)}:</strong> ${escapeHtml(r.wish)}`;
+        guestDisplay.appendChild(p);
+      });
+      // optional: keep scroll to bottom to show newest last
+      guestDisplay.scrollTop = guestDisplay.scrollHeight;
+    }
+
+    // load guestbook once from Apps Script
+    async function loadGuestbook() {
+      try {
+        const resp = await fetch(`${GSS_URL}?type=guestbook&_=${Date.now()}`); // cache-buster
+        const data = await resp.json();
+        if (data && data.status === 'ok') {
+          renderGuestbookRows(data.rows || []);
+        } else {
+          console.error('Guestbook load error:', data);
+        }
+      } catch (err) {
+        console.error('Failed to load guestbook:', err);
+      }
+    }
+
+    // setup initial load + polling + attach form submit to POST then reload
+    function initGuestbook() {
+      loadGuestbook();
+
+      // Poll every 5 seconds for updates
+      window.__guestPoll = setInterval(loadGuestbook, 5000);
+
+      // submit handler - POST to same script and then reload guestbook
+      if (guestForm) {
+        guestForm.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const formData = new FormData(guestForm);
+          try {
+            await fetch(GSS_URL, { method: 'POST', body: formData });
+            guestForm.reset();
+            // reload immediately (don't wait for next poll)
+            await loadGuestbook();
+          } catch (err) {
+            console.error('Error sending guestbook entry:', err);
+          }
+        });
+      }
+    }
+
+    // call on DOM ready
+    document.addEventListener('DOMContentLoaded', () => {
+      initGuestbook();
+    });
+
+    /* Render a single wish into #guestDisplay
+    function appendWishToDisplay(entry) {
+      const guestDisplay = document.getElementById('guestDisplay');
+      const p = document.createElement('p');
+      p.innerHTML = `<strong>${escapeHtml(entry.name)}:</strong> ${escapeHtml(entry.wish)}`;
+      guestDisplay.appendChild(p);
+    }
+
+    // Clear and load all guestbook entries from Google Sheets
+    async function loadGuestbook() {
+      const guestDisplay = document.getElementById('guestDisplay');
+      guestDisplay.innerHTML = ''; // clear
+      try {
+        const resp = await fetch(`${GSS_URL}?type=guestbook`);
+        const data = await resp.json();
+        if (data.status === 'ok') {
+          if (data.rows.length === 0) {
+            guestDisplay.innerHTML = '<p><i>Wishes will appear here...</i></p>';
+          } else {
+            // newest last -> keep order as in sheet (oldest first)
+            data.rows.forEach(r => appendWishToDisplay(r));
+          }
+        } else {
+          guestDisplay.innerHTML = '<p><i>Unable to load wishes.</i></p>';
+          console.error('Guestbook load error:', data.message || data);
+        }
+      } catch (err) {
+        guestDisplay.innerHTML = '<p><i>Unable to load wishes.</i></p>';
+        console.error('Fetch error:', err);
+      }
+    }
+
+    guestForm.addEventListener('submit', async e => {
+      e.preventDefault();
+      const formData = new FormData(guestForm);
+      // optimistic local append removed — we'll reload from server
+      try {
+        const res = await fetch(GSS_URL, { method: 'POST', body: formData });
+        const text = await res.text();
+        console.log('Server response:', text);
+        guestForm.reset();
+        await loadGuestbook(); // fetch fresh entries including this one
+      } catch (err) {
+        console.error('Error sending guestbook:', err);
+        // Optionally show the user an error message
+      }
+    });*/
+
+
+  </script>
+</body>
+</html>
