@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Wedding Invitation - Feb 6, 2026</title>
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
@@ -15,6 +15,77 @@
       font-family: 'Great Vibes', cursive;
       letter-spacing: 0.5px;
     }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden; /* keeps fullscreen clean */
+      background: #D4AF37;
+    }
+
+    /* ---------- Global Fonts ---------- */
+    /* Body text: Poppins (sans-serif) */
+    body, p, div, span, button, input, textarea, select {
+      font-family: 'Poppins', sans-serif;
+      color: #222; /* optional: softer black */
+    }
+    
+    /* Elegant title font for headings */
+    h1, h2, h3, .title, .wedding-title {
+      font-family: 'Great Vibes', cursive;
+      font-weight: 400;
+      letter-spacing: 0.5px;
+    }
+    
+    /* Ensure guestbook inputs and placeholders match */
+    input, textarea, select {
+      font-family: 'Poppins', sans-serif !important;
+      font-size: 1rem;
+      color: #222;
+    }
+    
+    input::placeholder,
+    textarea::placeholder {
+      font-family: 'Poppins', sans-serif !important;
+      color: #888;
+    }
+
+    /* ---------- Fullscreen Video ---------- */
+    #weddingVideo {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: contain;          /* instead of cover */
+      background: #D4AF37;          /* gold fallback */
+      z-index: 1;
+      cursor: pointer;
+    }
+    
+    /* ---------- Cover Overlay ---------- */
+    #videoCover {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: #D4AF37;          /* gold background visible behind cover img */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 3;
+      transition: opacity 0.7s ease;
+    }
+    
+    #videoCover img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;           /* ensures image fits without cropping */
+    }
+
+
 
     /* ---------- Fullscreen video + cover ---------- 
     #weddingVideo {
@@ -50,9 +121,9 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-    }*/
+    }
 
-    /* -------- Fullscreen Fit Fix -------- */
+    /* -------- Fullscreen Fit Fix -------- 
     #weddingVideo,
     #videoCover {
       position: fixed;
@@ -67,13 +138,13 @@
       padding: 0;
     }
     
-    /* The video itself */
+    /* The video itself 
     #weddingVideo {
       z-index: 1;
       background-color: black;
     }
     
-    /* The cover overlay */
+    /* The cover overlay 
     #videoCover {
       z-index: 3;
       display: flex;
@@ -83,12 +154,14 @@
       background-color: black;
     }
     
-    /* Cover image inside it */
+    /* Cover image inside it 
     #videoCover img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-    }
+    }*/
+
+    
 
     /* hidden state for cover */
     #videoCover.hide {
@@ -515,6 +588,7 @@
   </script>
 </body>
 </html>
+
 
 
 
