@@ -9,7 +9,7 @@
     body {
       margin: 0;
       font-family: 'Poppins', sans-serif;
-      background-color: #000;
+      background-color: #3D3834;
       color: #fff;
       overflow: hidden;
       font-family: 'Great Vibes', cursive;
@@ -28,7 +28,7 @@
     /* Body text: Poppins (sans-serif) */
     body, p, div, span, button, input, textarea, select {
       font-family: 'Poppins', sans-serif;
-      color: #222; /* optional: softer black */
+      color: #3D3834; /* optional: softer black */
     }
     
     /* Elegant title font for headings */
@@ -42,7 +42,7 @@
     input, textarea, select {
       font-family: 'Poppins', sans-serif !important;
       font-size: 1rem;
-      color: #222;
+      color: #3D3834;
     }
     
     input::placeholder,
@@ -59,7 +59,7 @@
       width: 100vw;
       height: 100vh;
       object-fit: contain;          /* instead of cover */
-      background: #D4AF37;          /* gold fallback */
+      background: #FAF8E8;          /* gold fallback */
       z-index: 1;
       cursor: pointer;
     }
@@ -71,7 +71,7 @@
       left: 0;
       width: 100vw;
       height: 100vh;
-      background: #D4AF37;          /* gold background visible behind cover img */
+      background: #FAF8E8;          /* gold background visible behind cover img */
       display: flex;
       align-items: center;
       justify-content: center;
@@ -84,84 +84,6 @@
       height: 100%;
       object-fit: contain;           /* ensures image fits without cropping */
     }
-
-
-
-    /* ---------- Fullscreen video + cover ---------- 
-    #weddingVideo {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      object-fit: cover;       
-      z-index: 1;
-      background: #000;
-      cursor: pointer;
-    }
-
-     cover overlay sits above video until removed 
-    #videoCover {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 3;               /* above video 
-      transition: opacity 0.7s ease;
-      background: #000;         /* fallback 
-      pointer-events: auto;     /* allow clicks so we can start playback 
-    }
-
-    /* cover image fills viewport 
-    #videoCover img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    /* -------- Fullscreen Fit Fix -------- 
-    #weddingVideo,
-    #videoCover {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      min-height: 100vh;
-      min-width: 100vw;
-      object-fit: cover;
-      margin: 0;
-      padding: 0;
-    }
-    
-    /* The video itself 
-    #weddingVideo {
-      z-index: 1;
-      background-color: black;
-    }
-    
-    /* The cover overlay 
-    #videoCover {
-      z-index: 3;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: opacity 0.7s ease;
-      background-color: black;
-    }
-    
-    /* Cover image inside it 
-    #videoCover img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }*/
-
-    
 
     /* hidden state for cover */
     #videoCover.hide {
@@ -178,7 +100,7 @@
       display: none;            /* shown by JS */
       z-index: 4;               /* above cover removal */
       background: rgba(0,0,0,0.65);
-      color: gold;
+      color: #3D3834;
       padding: 10px 14px;
       border-radius: 8px;
       font-weight: 600;
@@ -283,7 +205,7 @@
     }
 
     .count-box {
-      background: #000;
+      background: #3D3834;
       color: gold;
       padding: 10px;
       border-radius: 10px;
@@ -588,6 +510,7 @@
   </script>
 </body>
 </html>
+
 
 
 
