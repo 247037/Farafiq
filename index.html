@@ -4,15 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Wedding Invitation - Feb 6, 2026</title>
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Nunito+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
-      font-family: 'Poppins', sans-serif;
+      font-family: 'Nunito Sans', sans-serif;
       background-color: #3D3834;
       color: #fff;
       overflow: hidden;
-      font-family: 'Great Vibes', cursive;
+      font-family: 'Lobster', cursive;
       letter-spacing: 0.5px;
     }
 
@@ -29,27 +29,27 @@
     /* ---------- Global Fonts ---------- */
     /* Body text: Poppins (sans-serif) */
     body, p, div, span, button, input, textarea, select {
-      font-family: 'Poppins', sans-serif;
+      font-family: 'Nunito Sans', sans-serif;
       color: #3D3834; /* optional: softer black */
     }
     
     /* Elegant title font for headings */
     h1, h2, h3, .title, .wedding-title {
-      font-family: 'Great Vibes', cursive;
+      font-family: 'Lobster', cursive;
       font-weight: 400;
       letter-spacing: 0.5px;
     }
     
     /* Ensure guestbook inputs and placeholders match */
     input, textarea, select {
-      font-family: 'Poppins', sans-serif !important;
+      font-family: 'Nunito Sans', sans-serif !important;
       font-size: 1rem;
       color: #3D3834;
     }
     
     input::placeholder,
     textarea::placeholder {
-      font-family: 'Poppins', sans-serif !important;
+      font-family: 'Nunito Sans', sans-serif !important;
       color: #888;
     }
 
@@ -287,16 +287,21 @@
   <div id="invitationPopup" class="popup">
     <div class="popup-content">
       <span class="close-btn" onclick="closePopup('invitationPopup')">&times;</span>
-      <h2>You're Invited!</h2>
-      <p>We joyfully invite you to celebrate the wedding of</p>
-      <h3>Afiq & Farah</h3>
-      <p>on Friday, February 6th, 2026<br>at Rumah Abang Jamil 1, Seremban</p>
+      <h2> بِسۡـــــــــمِ ٱللهِ ٱلرَّحۡـمَـٰنِ ٱلرَّحِـــــــيمِ </h2>
+      <p>Dengan penuh kesyukuran, kami</p>
+      <p>Azhar bin Hashim<br>&<br>Siti Hajar binti Ahmad</p>
+      <p>menjemput Yang Berbahagia Dato’/ Datin/ Tuan/ Puan/ Encik/ Cik ke Majlis Perkahwinan Puteri Sulung Kami</p>
+      <h3>Siti Nur Farah Ain binti Azhar</h3>
+      <p>dengan pasangannya</p>
+      <h3>Muhammad Afiq bin Muhd Norzi</h3>
+      <p>pada 6 Februari 2026<br>8 hingga 11 malam<br>bertempat di Rumah Abang Jamil 1, Seremban.</p>
       <div class="countdown">
         <div class="count-box"><div id="days" style="color:#EAEDE6;">0</div><small>Days</small></div>
         <div class="count-box"><div id="hours" style="color:#EAEDE6;">0</div><small>Hours</small></div>
         <div class="count-box"><div id="minutes" style="color:#EAEDE6;">0</div><small>Minutes</small></div>
       </div>
-      <p>We can't wait to celebrate this special day with you!</p>
+      <p>Semoga dengan kehadiran dan doa restu hadirin akan menyerikan lagi majlis kami dan diberkati oleh Allah SWT, In Shaa Allah.<br>Terima kasih.</p>
+      <p>Zaha: 0 18-764 7737 | Kak Wan: 0 13-652 8268</p>
     </div>
   </div>
 
@@ -306,14 +311,16 @@
       <span class="close-btn" onclick="closePopup('rsvpPopup')">&times;</span>
       <h2>RSVP</h2>
       <form id="rsvpForm">
-        <input type="text" name="name" placeholder="Your Name" required><br>
-        <label>Attendance:</label><br>
+        <label>Nama:</label><br>
+        <input type="text" name="name" placeholder="Nama anda" required><br>
+        <label>Kehadiran:</label><br>
         <select name="attendance" required>
-          <option value="yes">Attending</option>
-          <option value="no">Not Attending</option>
+          <option value="yes">Hadir</option>
+          <option value="no">Tidak hadir</option>
         </select><br>
-        <input type="number" name="total" placeholder="Number of Guests" min="0" required><br>
-        <button type="submit">Submit</button>
+        <label>Jumlah tetamu:</label><br>
+        <input type="number" name="total" placeholder="Sila pilih" min="1" required><br>
+        <button type="submit">Hantar</button>
       </form>
       <p id="rsvpMsg"></p>
     </div>
@@ -511,6 +518,7 @@
   </script>
 </body>
 </html>
+
 
 
 
