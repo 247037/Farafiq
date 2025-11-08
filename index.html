@@ -22,6 +22,8 @@
       height: 100%;
       overflow: hidden; /* keeps fullscreen clean */
       background: #EAEDE6;
+      -webkit-overflow-scrolling: touch;
+      transform: translateZ(0); /* creates new stacking context */
     }
 
     /* ---------- Global Fonts ---------- */
@@ -149,7 +151,7 @@
       display: flex;
       gap: 40px;
       backdrop-filter: blur(3px);
-      z-index: 10;
+      z-index: 100;
     }
 
     .menu-btn img {
@@ -255,7 +257,7 @@
   <div id="videoCover" class="cover">
     <img src="WeddingCover.png" alt="Wedding Cover" />
   </div>
-  <video id="weddingVideo" preload="metadata" poster="WeddingCover.png">
+  <video id="weddingVideo" playsinline webkit-playsinline preload="metadata" poster="WeddingCover.png">
     <source src="WeddingFarafiqNoAudio.mp4" type="video/mp4">
     Your browser does not support video.
   </video>
@@ -509,6 +511,7 @@
   </script>
 </body>
 </html>
+
 
 
 
