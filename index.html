@@ -172,10 +172,12 @@
       width: 100vw;
       height: 100vh;
       background: rgba(0,0,0,0.85);
-      display: none;
+      display: flex;
       align-items: center;
       justify-content: center;
       z-index: 20;
+      padding: 24px;
+      box-sizing: border-box;
     }
 
     .popup-content {
@@ -185,8 +187,11 @@
       padding: 25px;
       width: 90%;
       max-width: 400px;
+      max-height: 85vh;
+      overflow-y: auto;
       text-align: center;
       position: relative;
+      box-sizing: border-box;
     }
 
     .close-btn {
@@ -223,11 +228,11 @@
     }
 
     button {
-      background: gold;
+      background: #3D3834;
       border: none;
       padding: 10px 20px;
       border-radius: 10px;
-      color: #000;
+      color: #3D3834;
       cursor: pointer;
       font-weight: bold;
     }
@@ -288,12 +293,11 @@
     <div class="popup-content">
       <span class="close-btn" onclick="closePopup('invitationPopup')">&times;</span>
       <h2> بِسۡـــــــــمِ ٱللهِ ٱلرَّحۡـمَـٰنِ ٱلرَّحِـــــــيمِ </h2>
+      <p> لسَّلاَمُ عَلَيْكُمْ وَرَحْمَةُ اللهِ وَبَرَكَاتُهُ </p>
       <p>Dengan penuh kesyukuran, kami</p>
-      <p>Azhar bin Hashim<br>&<br>Siti Hajar binti Ahmad</p>
+      <p><h3>Azhar bin Hashim</h3><br>&<br><h3>Siti Hajar binti Ahmad</h3></p>
       <p>menjemput Yang Berbahagia Dato’/ Datin/ Tuan/ Puan/ Encik/ Cik ke Majlis Perkahwinan Puteri Sulung Kami</p>
-      <h3>Siti Nur Farah Ain binti Azhar</h3>
-      <p>dengan pasangannya</p>
-      <h3>Muhammad Afiq bin Muhd Norzi</h3>
+      <p><h3>Siti Nur Farah Ain binti Azhar</h3><br>dengan pasangannya<br><h3>Muhammad Afiq bin Muhd Norzi</h3></p>
       <p>pada 6 Februari 2026<br>8 hingga 11 malam<br>bertempat di Rumah Abang Jamil 1, Seremban.</p>
       <div class="countdown">
         <div class="count-box"><div id="days" style="color:#EAEDE6;">0</div><small>Days</small></div>
@@ -311,14 +315,14 @@
       <span class="close-btn" onclick="closePopup('rsvpPopup')">&times;</span>
       <h2>RSVP</h2>
       <form id="rsvpForm">
-        <label>Nama:</label><br>
+        <label style="text-align:left;">Nama:</label><br>
         <input type="text" name="name" placeholder="Nama anda" required><br>
-        <label>Kehadiran:</label><br>
+        <label style="text-align:left;">Kehadiran:</label><br>
         <select name="attendance" required>
           <option value="yes">Hadir</option>
           <option value="no">Tidak hadir</option>
         </select><br>
-        <label>Jumlah tetamu:</label><br>
+        <label style="text-align:left;">Jumlah tetamu:</label><br>
         <input type="number" name="total" placeholder="Sila pilih" min="1" required><br>
         <button type="submit">Hantar</button>
       </form>
@@ -518,6 +522,7 @@
   </script>
 </body>
 </html>
+
 
 
 
