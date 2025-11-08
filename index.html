@@ -172,12 +172,11 @@
       width: 100vw;
       height: 100vh;
       background: rgba(0,0,0,0.85);
-      display: flex;
+      display: none;
       align-items: center;
       justify-content: center;
       z-index: 20;
-      padding: 24px;
-      box-sizing: border-box;
+      padding: 15px;
     }
 
     .popup-content {
@@ -191,7 +190,6 @@
       overflow-y: auto;
       text-align: center;
       position: relative;
-      box-sizing: border-box;
     }
 
     .close-btn {
@@ -315,16 +313,16 @@
       <span class="close-btn" onclick="closePopup('rsvpPopup')">&times;</span>
       <h2>RSVP</h2>
       <form id="rsvpForm">
-        <label style="text-align:left;">Nama:</label><br>
+        <label>Nama:</label><br>
         <input type="text" name="name" placeholder="Nama anda" required><br>
-        <label style="text-align:left;">Kehadiran:</label><br>
+        <label>Kehadiran:</label><br>
         <select name="attendance" required>
           <option value="yes">Hadir</option>
           <option value="no">Tidak hadir</option>
         </select><br>
-        <label style="text-align:left;">Jumlah tetamu:</label><br>
+        <label>Jumlah tetamu:</label><br>
         <input type="number" name="total" placeholder="Sila pilih" min="1" required><br>
-        <button type="submit">Hantar</button>
+        <button type="submit" style="color:#EAEDE6;">Hantar</button>
       </form>
       <p id="rsvpMsg"></p>
     </div>
@@ -522,6 +520,7 @@
   </script>
 </body>
 </html>
+
 
 
 
